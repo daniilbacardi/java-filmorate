@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class FilmorateApplicationTests {
+class FilmorateAppTests {
 	@Autowired
 	private FilmController filmController;
 	@Autowired
