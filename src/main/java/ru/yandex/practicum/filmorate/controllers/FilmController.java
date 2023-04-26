@@ -31,11 +31,11 @@ public class FilmController {
 
     @PostMapping
     public Film addFilm(@RequestBody Film film) {
-        film.setId(filmId());
         if (films.containsValue(film)) {
             throw new ValidationException("такой фильм уже добавлялся");
         }
         FilmValidator.validate(film);
+        film.setId(filmId());
         films.put(film.getId(), film);
         log.info("фильм добавлен", film);
         return film;
