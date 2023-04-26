@@ -20,7 +20,7 @@ public class UserController {
     private int userId = 0;
 
     @PostMapping
-    public User addUser(@Valid @RequestBody User user) {
+    public User addUser(@RequestBody User user) {
         user.setId(++userId);
         UserValidator.validate(user);
         users.put(user.getId(), user);
@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping
-    public User updateUser(@Valid @RequestBody User user) {
+    public User updateUser(@RequestBody User user) {
         if (!users.containsKey(user.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

@@ -26,7 +26,7 @@ public class FilmController {
     }
 
     @PostMapping
-    public Film addFilm(@Valid @RequestBody Film film) {
+    public Film addFilm(@RequestBody Film film) {
         film.setId(++filmId);
         if (films.containsValue(film)) {
             throw new ValidationException("такой фильм уже добавлялся");
@@ -38,7 +38,7 @@ public class FilmController {
     }
 
     @PutMapping
-    public Film update(@Valid @RequestBody Film film) {
+    public Film update(@RequestBody Film film) {
         if (!films.containsKey(film.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
