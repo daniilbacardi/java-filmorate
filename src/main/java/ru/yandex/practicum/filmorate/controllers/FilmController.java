@@ -19,6 +19,11 @@ public class FilmController {
     private final Map<Integer, Film> films = new HashMap<>();
     private int filmId = 0;
 
+    private int filmId() {
+        ++filmId;
+        return filmId;
+    }
+
     @GetMapping
     public Collection<Film> getAll() {
         return films.values();
@@ -26,7 +31,7 @@ public class FilmController {
 
     @PostMapping
     public Film addFilm(@RequestBody Film film) {
-        film.setId(++filmId);
+        film.setId(filmId());
         if (films.containsValue(film)) {
             throw new ValidationException("такой фильм уже добавлялся");
         }

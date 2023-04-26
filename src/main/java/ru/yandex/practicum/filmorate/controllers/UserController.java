@@ -18,9 +18,14 @@ public class UserController {
     private final Map<Integer, User> users = new HashMap<>();
     private int userId = 0;
 
+    private int userId() {
+        ++userId;
+        return userId;
+    }
+
     @PostMapping
     public User addUser(@RequestBody User user) {
-        user.setId(userId++);
+        user.setId(userId());
         UserValidator.validate(user);
         users.put(user.getId(), user);
         log.info("пользователь добавлен", user);
