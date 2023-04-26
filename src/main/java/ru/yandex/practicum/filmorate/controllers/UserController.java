@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping
     public User addUser(@RequestBody User user) {
-        user.setId(++userId);
+        user.setId(userId++);
         UserValidator.validate(user);
         users.put(user.getId(), user);
         log.info("пользователь добавлен", user);
