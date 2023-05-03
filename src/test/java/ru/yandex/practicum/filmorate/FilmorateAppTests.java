@@ -25,7 +25,7 @@ class FilmorateAppTests {
 		film.setDescription("Description");
 		film.setReleaseDate(LocalDate.of(1995, 2, 15));
 		film.setDuration(120);
-		assertThrows(ValidationException.class, () -> filmController.addFilm(film));
+		assertThrows(ValidationException.class, () -> filmController.addNewFilm(film));
 	}
 
 	@Test
@@ -37,7 +37,7 @@ class FilmorateAppTests {
 				"Donec blandit sodales quam.");
 		film.setReleaseDate(LocalDate.of(2022, 4, 10));
 		film.setDuration(120);
-		assertThrows(ValidationException.class, () -> filmController.addFilm(film));
+		assertThrows(ValidationException.class, () -> filmController.addNewFilm(film));
 	}
 
 	@Test
@@ -47,7 +47,7 @@ class FilmorateAppTests {
 		film.setDescription("Description");
 		film.setReleaseDate(LocalDate.of(1895, 12, 27));
 		film.setDuration(180);
-		assertThrows(ValidationException.class, () -> filmController.addFilm(film));
+		assertThrows(ValidationException.class, () -> filmController.addNewFilm(film));
 	}
 
 	@Test
@@ -57,7 +57,7 @@ class FilmorateAppTests {
 		film.setDescription("Description");
 		film.setReleaseDate(LocalDate.of(2020, 2, 2));
 		film.setDuration(0);
-		assertThrows(ValidationException.class, () -> filmController.addFilm(film));
+		assertThrows(ValidationException.class, () -> filmController.addNewFilm(film));
 	}
 
 	@Test
@@ -67,7 +67,7 @@ class FilmorateAppTests {
 		user.setEmail("test.ur");
 		user.setBirthday(LocalDate.of(2020, 2, 1));
 		user.setLogin("login");
-		assertThrows(ValidationException.class, () -> userController.addUser(user));
+		assertThrows(ValidationException.class, () -> userController.addNewUser(user));
 	}
 
 	@Test
@@ -77,7 +77,7 @@ class FilmorateAppTests {
 		user.setEmail("415@email.ru");
 		user.setLogin(" ");
 		user.setBirthday(LocalDate.of(2022, 2, 1));
-		assertThrows(ValidationException.class, () -> userController.addUser(user));
+		assertThrows(ValidationException.class, () -> userController.addNewUser(user));
 	}
 
 	@Test
@@ -87,7 +87,7 @@ class FilmorateAppTests {
 		user.setEmail("new@art.te");
 		user.setBirthday(LocalDate.of(2022, 1, 1));
 		user.setLogin("oneword twowo rds");
-		assertThrows(ValidationException.class, () -> userController.addUser(user));
+		assertThrows(ValidationException.class, () -> userController.addNewUser(user));
 	}
 
 	@Test
@@ -96,7 +96,7 @@ class FilmorateAppTests {
 		user.setEmail("testname@testsite.te");
 		user.setBirthday(LocalDate.of(2012, 2, 12));
 		user.setLogin("login");
-		userController.addUser(user);
+		userController.addNewUser(user);
 		assertEquals(user.getName(), user.getLogin());
 	}
 
@@ -106,6 +106,6 @@ class FilmorateAppTests {
 		user.setEmail("territ@mail.ru");
 		user.setBirthday(LocalDate.of(2024, 1, 1));
 		user.setLogin("login");
-		assertThrows(ValidationException.class, () -> userController.addUser(user));
+		assertThrows(ValidationException.class, () -> userController.addNewUser(user));
 	}
 }
