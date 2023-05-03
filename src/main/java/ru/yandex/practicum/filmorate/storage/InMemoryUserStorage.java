@@ -28,13 +28,8 @@ public class InMemoryUserStorage implements UserStorage {
         UserValidator.validate(user);
         user.setId(assignId());
         users.put(user.getId(), user);
-        log.info("Добавлен пользователь {}, id={}", user.getName(), user.getId());
+        log.info("пользователь {} добавлен, id={}", user.getName(), user.getId());
         return user;
-    }
-
-    @Override
-    public Collection<User> getAllUsers() {
-        return users.values();
     }
 
     @Override
@@ -44,7 +39,7 @@ public class InMemoryUserStorage implements UserStorage {
         }
         UserValidator.validate(user);
         users.put(user.getId(), user);
-        log.info("Обновился пользователь {}", user.getName());
+        log.info("пользователь {} обновлен, id={}", user.getName(), user.getId());
         return user;
     }
 
@@ -56,5 +51,10 @@ public class InMemoryUserStorage implements UserStorage {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("Пользователь с id %d не найден", id));
         }
+    }
+
+    @Override
+    public Collection<User> getAllUsers() {
+        return users.values();
     }
 }
