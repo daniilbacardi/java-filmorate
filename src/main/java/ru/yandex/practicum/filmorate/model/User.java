@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -11,17 +12,18 @@ import java.util.Set;
 
 @Data
 @Valid
+@FieldDefaults(level=AccessLevel.PRIVATE)
 public class User {
     @JsonIgnore
-    private Set<Integer> friends = new HashSet<>();
-    private int id;
+    Set<Integer> friends = new HashSet<>();
+    int id;
     @NotBlank
     @Email
-    private String email;
+    String email;
     @NotBlank
-    private String login;
-    private String name;
+    String login;
+    String name;
     @PastOrPresent
-    private LocalDate birthday;
+    LocalDate birthday;
 }
 

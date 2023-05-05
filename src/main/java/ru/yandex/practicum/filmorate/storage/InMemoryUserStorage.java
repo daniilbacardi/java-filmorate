@@ -24,11 +24,10 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public User addUser(User user) {
+    public User addNewUser(User user) {
         UserValidator.validate(user);
         user.setId(assignId());
         users.put(user.getId(), user);
-        log.info("пользователь {} добавлен, id={}", user.getName(), user.getId());
         return user;
     }
 
@@ -39,12 +38,11 @@ public class InMemoryUserStorage implements UserStorage {
         }
         UserValidator.validate(user);
         users.put(user.getId(), user);
-        log.info("пользователь {} обновлен, id={}", user.getName(), user.getId());
         return user;
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUserById(int id) {
         if (users.containsKey(id)) {
             return users.get(id);
         } else {

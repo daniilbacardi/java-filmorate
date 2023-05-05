@@ -26,54 +26,54 @@ public class UserService {
     }
 
     public void addUserToFriends(int userId, int friendId) {
-        if (!userStorage.getAllUsers().contains(userStorage.getUser(userId))) {
+        if (!userStorage.getAllUsers().contains(userStorage.getUserById(userId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет пользователя с id %d", friendId));
         }
-        if (!userStorage.getAllUsers().contains(userStorage.getUser(friendId))) {
+        if (!userStorage.getAllUsers().contains(userStorage.getUserById(friendId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет пользователя с id %d", userId));
         } else {
-            userStorage.getUser(userId).getFriends().add(friendId);
-            userStorage.getUser(friendId).getFriends().add(userId);
+            userStorage.getUserById(userId).getFriends().add(friendId);
+            userStorage.getUserById(friendId).getFriends().add(userId);
             log.info("{} и {} подружились",
-                    userStorage.getUser(userId).getName(),
-                    userStorage.getUser(friendId).getName());
+                    userStorage.getUserById(userId).getName(),
+                    userStorage.getUserById(friendId).getName());
         }
     }
 
     public void removeUserFromFriends(int userId, int friendId) {
-        if (!userStorage.getAllUsers().contains(userStorage.getUser(userId))) {
+        if (!userStorage.getAllUsers().contains(userStorage.getUserById(userId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет пользователя с id %d", userId));
         }
-        if (!userStorage.getAllUsers().contains(userStorage.getUser(friendId))) {
+        if (!userStorage.getAllUsers().contains(userStorage.getUserById(friendId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет пользователя с id %d", userId));
         } else {
-            userStorage.getUser(userId).getFriends().remove(friendId);
-            userStorage.getUser(friendId).getFriends().remove(userId);
+            userStorage.getUserById(userId).getFriends().remove(friendId);
+            userStorage.getUserById(friendId).getFriends().remove(userId);
             log.info("{} и {} больше не дружат",
-                    userStorage.getUser(userId).getName(),
-                    userStorage.getUser(friendId).getName());
+                    userStorage.getUserById(userId).getName(),
+                    userStorage.getUserById(friendId).getName());
         }
     }
 
     public List<User> getAllUserFriends(int userId) {
-        return userStorage.getUser(userId).getFriends().stream()
-                .map(userStorage::getUser)
+        return userStorage.getUserById(userId).getFriends().stream()
+                .map(userStorage::getUserById)
                 .collect(Collectors.toList());
     }
 
     public Set<User> getUsersCommonFriends(int userId, int friendId) {
-        return userStorage.getUser(userId).getFriends().stream()
-                .filter(u -> userStorage.getUser(friendId).getFriends().contains(u))
-                .map(userStorage::getUser)
+        return userStorage.getUserById(userId).getFriends().stream()
+                .filter(u -> userStorage.getUserById(friendId).getFriends().contains(u))
+                .map(userStorage::getUserById)
                 .collect(Collectors.toSet());
     }
 
     public User addNewUser(User user) {
-        userStorage.addUser(user);
+        userStorage.addNewUser(user);
         return user;
     }
 
@@ -83,7 +83,7 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        return userStorage.getUser(id);
+        return userStorage.getUserById(id);
     }
 
     public Collection<User> getAllUsers() {

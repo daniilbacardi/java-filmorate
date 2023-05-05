@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -11,20 +12,21 @@ import java.util.Set;
 
 @Data
 @Valid
+@FieldDefaults(level=AccessLevel.PRIVATE)
 public class Film {
     @JsonIgnore
-    private Set<Integer> likes = new HashSet<>();
+    Set<Integer> likes = new HashSet<>();
     @JsonIgnore
-    private int likeCount;
-    private int id;
+    int likeCount;
+    int id;
     @NotBlank
     @NotNull
-    private String name;
+    String name;
     @NotBlank
     @Size(max = 200)
-    private String description;
+    String description;
     @PastOrPresent
-    private LocalDate releaseDate;
+    LocalDate releaseDate;
     @Min(0)
-    private Integer duration;
+    Integer duration;
 }

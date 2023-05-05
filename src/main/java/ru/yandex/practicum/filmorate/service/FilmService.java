@@ -29,34 +29,34 @@ public class FilmService {
     }
 
     public void addNewLikeToFilm(int filmId, int userId) {
-        if (!filmStorage.getAllFilms().contains(filmStorage.getFilm(filmId))) {
+        if (!filmStorage.getAllFilms().contains(filmStorage.getFilmById(filmId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет фильма с id %d", filmId));
         }
-        if (!userStorage.getAllUsers().contains(userStorage.getUser(userId))) {
+        if (!userStorage.getAllUsers().contains(userStorage.getUserById(userId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет пользователя с id %d", userId));
         } else {
-            filmStorage.getFilm(filmId).getLikes().add((userId));
-            filmStorage.getFilm(filmId).setLikeCount(filmStorage.getFilm(filmId).getLikes().size());
-            log.info("пользователю {} понравился фильм {}", userStorage.getUser(userId).getName(),
-                    filmStorage.getFilm(filmId).getName());
+            filmStorage.getFilmById(filmId).getLikes().add((userId));
+            filmStorage.getFilmById(filmId).setLikeCount(filmStorage.getFilmById(filmId).getLikes().size());
+            log.info("пользователю {} понравился фильм {}", userStorage.getUserById(userId).getName(),
+                    filmStorage.getFilmById(filmId).getName());
         }
     }
 
     public void deleteLikeOnFilm(int filmId, int userId) {
-        if (!filmStorage.getAllFilms().contains(filmStorage.getFilm(filmId))) {
+        if (!filmStorage.getAllFilms().contains(filmStorage.getFilmById(filmId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет фильма с id %d", filmId));
         }
-        if (!userStorage.getAllUsers().contains(userStorage.getUser(userId))) {
+        if (!userStorage.getAllUsers().contains(userStorage.getUserById(userId))) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("нет пользователя с id %d", userId));
         } else {
-            filmStorage.getFilm(filmId).getLikes().remove(userId);
-            filmStorage.getFilm(filmId).setLikeCount(filmStorage.getFilm(filmId).getLikes().size());
-            log.info("Пользователю {} больше не нравится фильм {}", userStorage.getUser(userId).getName(),
-                    filmStorage.getFilm(filmId).getName());
+            filmStorage.getFilmById(filmId).getLikes().remove(userId);
+            filmStorage.getFilmById(filmId).setLikeCount(filmStorage.getFilmById(filmId).getLikes().size());
+            log.info("Пользователю {} больше не нравится фильм {}", userStorage.getUserById(userId).getName(),
+                    filmStorage.getFilmById(filmId).getName());
         }
     }
 
@@ -73,7 +73,7 @@ public class FilmService {
     }
 
     public Film addNewFilm(Film film) {
-        filmStorage.addFilm(film);
+        filmStorage.addNewFilm(film);
         return film;
     }
 
@@ -83,6 +83,6 @@ public class FilmService {
     }
 
     public Film getFilmById(int id) {
-        return filmStorage.getFilm(id);
+        return filmStorage.getFilmById(id);
     }
 }
