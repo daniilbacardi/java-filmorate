@@ -13,6 +13,7 @@ import java.util.Set;
 @Data
 @Valid
 @FieldDefaults(level=AccessLevel.PRIVATE)
+
 public class User {
     @JsonIgnore
     Set<Integer> friends = new HashSet<>();
