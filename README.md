@@ -1,7 +1,7 @@
 # java-filmorate
 Template repository for Filmorate project.
 
-# Схема БД
+## Схема БД
 ![](/src/main/resources/schema.png)
 
 ### Пример синтаксиса запроса
