@@ -22,6 +22,10 @@ public class FilmValidator {
         if (film.getDuration() <= 0) {
             throw new ValidationException("Продолжительность должна быть больше нуля");
         }
+
+        if (film.getMpa() == null) {
+            throw new ValidationException("Фильм должен иметь рейтинг MPA");
+        }
     }
 }
 

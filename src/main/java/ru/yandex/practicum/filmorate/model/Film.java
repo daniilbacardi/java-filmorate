@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Data
 @Valid
@@ -17,7 +18,7 @@ public class Film {
     @JsonIgnore
     Set<Integer> likes = new HashSet<>();
     @JsonIgnore
-    int likeCount;
+    int likesCount;
     int id;
     @NotBlank
     @NotNull
@@ -25,8 +26,17 @@ public class Film {
     @NotBlank
     @Size(max = 200)
     String description;
-    @PastOrPresent
     LocalDate releaseDate;
     @Min(0)
     Integer duration;
+    Mpa mpa;
+    Set<Genre> genres = new TreeSet<>();
+
+    public Film(int id, String name, String description, LocalDate releaseDate, int duration) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.duration = duration;
+    }
 }

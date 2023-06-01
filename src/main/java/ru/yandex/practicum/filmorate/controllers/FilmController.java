@@ -13,6 +13,7 @@ import java.util.*;
 @Slf4j
 @RequestMapping("/films")
 public class FilmController {
+
     private final FilmService filmService;
 
     @Autowired
@@ -26,7 +27,7 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public Film getFilmById(@PathVariable int id) {
+    public Film getFilmById(@Valid @PathVariable int id) {
         return filmService.getFilmById(id);
     }
 
@@ -41,17 +42,17 @@ public class FilmController {
     }
 
     @PutMapping("/{id}/like/{userId}")
-    public void addLikeToFilm(@PathVariable int id, @PathVariable int userId) {
-        filmService.addNewLikeToFilm(id, userId);
+    public void addLike(@PathVariable int id, @PathVariable int userId) {
+        filmService.addLike(id, userId);
     }
 
     @DeleteMapping("/{id}/like/{userId}")
-    public void deleteLikeOnFilm(@PathVariable int id, @PathVariable int userId) {
-        filmService.deleteLikeOnFilm(id, userId);
+    public void deleteLike(@PathVariable int id, @PathVariable int userId) {
+        filmService.deleteLike(id, userId);
     }
 
     @GetMapping("/popular")
     public List<Film> getPopularFilms(@RequestParam(defaultValue = "10") int count) {
-        return filmService.getPopularFilms(count);
+        return filmService.popularFilms(count);
     }
 }
