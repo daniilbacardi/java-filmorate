@@ -37,8 +37,8 @@ public class FilmDbStorage implements FilmStorage {
         FilmValidator.validate(film);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement
-                    ("INSERT INTO FILMS (NAME, DESCRIPTION, RELEASEDATE, DURATION, MPA_ID)" +
+            PreparedStatement stmt = connection.prepareStatement (
+                    "INSERT INTO FILMS (NAME, DESCRIPTION, RELEASEDATE, DURATION, MPA_ID)" +
                             " VALUES (?, ?, ?, ?, ?)", new String[]{"film_id"});
             stmt.setString(1, film.getName());
             stmt.setString(2, film.getDescription());
@@ -153,8 +153,8 @@ public class FilmDbStorage implements FilmStorage {
 
     public List<Film> getPopularFilms(int count) {
         List<Film> popularFilms = new ArrayList<>();
-        SqlRowSet filmsRows = jdbcTemplate.queryForRowSet
-                ("SELECT F.FILM_ID, F.NAME, F.DESCRIPTION, F.RELEASEDATE, F.DURATION, " +
+        SqlRowSet filmsRows = jdbcTemplate.queryForRowSet (
+                "SELECT F.FILM_ID, F.NAME, F.DESCRIPTION, F.RELEASEDATE, F.DURATION, " +
                         "F.MPA_ID, COUNT(LIKES.USER_ID), MPA_NAME " +
                         "FROM FILMS AS F LEFT JOIN LIKES ON F.FILM_ID = LIKES.FILM_ID " +
                         "JOIN MPA_RATING ON F.MPA_ID = MPA_RATING.MPA_ID " +
