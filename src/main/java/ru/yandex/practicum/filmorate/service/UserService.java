@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.model.Friend;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FriendStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.validators.UserValidator;
 
 import java.util.Collection;
 import java.util.List;
@@ -48,6 +49,7 @@ public class UserService {
     }
 
     public User addNewUser(User user) {
+        UserValidator.validate(user);
         userStorage.addNewUser(user);
         return user;
     }

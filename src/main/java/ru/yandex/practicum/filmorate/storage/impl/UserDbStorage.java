@@ -3,6 +3,8 @@ package ru.yandex.practicum.filmorate.storage.impl;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,6 +14,7 @@ import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,18 +34,19 @@ public class UserDbStorage implements UserStorage {
     @Override
     public User addNewUser(User user) {
         UserValidator.validate(user);
-        Map<String, Object> keys = new SimpleJdbcInsert(this.jdbcTemplate)
-                .withTableName("users")
-                .usingColumns("email", "login", "name", "birthday")
-                .usingGeneratedKeyColumns("user_id")
-                .executeAndReturnKeyHolder(Map.of("email", user.getEmail(),
-                        "login", user.getLogin(),
-                        "name", user.getName(),
-                        "birthday", Date.valueOf(user.getBirthday())))
-                .getKeys();
-        if (keys != null) {
-            user.setId((Integer) keys.get("user_id"));
-        }
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement stamt = connection.prepareStatement(
+                    "INSERT INTO USERS (EMAIL, LOGIN, NAME, BIRTHDAY)" +
+                            " VALUES (?, ?, ?, ?)", new String[]{"user_id"});
+            stamt.setString(1, user.getEmail());
+            stamt.setString(2, user.getLogin());
+            stamt.setString(3, user.getName());
+            stamt.setDate(4, Date.valueOf(user.getBirthday()));
+            return stamt;
+        }, keyHolder);
+        user.setId(keyHolder.getKey().intValue());
+
         return user;
     }
 
