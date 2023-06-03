@@ -63,10 +63,12 @@ public class FilmDbStorage implements FilmStorage {
                 film.getMpa().getId(),
                 film.getId());
 
-        if (film.getGenres() != null && !film.getGenres().isEmpty()) {
+        if (film.getGenres() != null) {
             removeGenresFromFilm(film.getId());
         }
-        addGenresToFilm(film.getId(), film.getGenres());
+        if (film.getGenres() != null && !film.getGenres().isEmpty()) {
+            addGenresToFilm(film.getId(), film.getGenres());
+        }
         return getFilmById(film.getId());
     }
 
