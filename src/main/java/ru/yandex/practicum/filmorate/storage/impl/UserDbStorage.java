@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component("UserDbStorage")
 public class UserDbStorage implements UserStorage {
@@ -39,7 +40,9 @@ public class UserDbStorage implements UserStorage {
                         "name", user.getName(),
                         "birthday", Date.valueOf(user.getBirthday())))
                 .getKeys();
-        user.setId((Integer) keys.get("user_id"));
+        if (keys != null) {
+            user.setId((Integer) keys.get("user_id"));
+        }
         return user;
     }
 
@@ -70,7 +73,7 @@ public class UserDbStorage implements UserStorage {
                     usersRows.getString("email"),
                     usersRows.getString("login"),
                     usersRows.getString("name"),
-                    usersRows.getDate("birthday").toLocalDate()));
+                    Objects.requireNonNull(usersRows.getDate("birthday")).toLocalDate()));
         }
         return allUsers;
     }
@@ -84,7 +87,7 @@ public class UserDbStorage implements UserStorage {
                     userRows.getString("email"),
                     userRows.getString("login"),
                     userRows.getString("name"),
-                    userRows.getDate("birthday").toLocalDate()
+                    Objects.requireNonNull(userRows.getDate("birthday")).toLocalDate()
             );
             return user;
         } else {
