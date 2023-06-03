@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Valid
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-    @JsonIgnore
     int id;
     @NotBlank
     @Email
