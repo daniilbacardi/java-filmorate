@@ -15,7 +15,6 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
     @JsonIgnore
-    Set<Integer> friends = new HashSet<>();
     int id;
     @NotBlank
     @Email

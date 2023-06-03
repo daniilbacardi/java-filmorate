@@ -16,8 +16,6 @@ import java.util.TreeSet;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Film {
     @JsonIgnore
-    Set<Integer> likes = new HashSet<>();
-    @JsonIgnore
     int likesCount;
     int id;
     @NotBlank
