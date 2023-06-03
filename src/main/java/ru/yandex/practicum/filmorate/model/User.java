@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Valid
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
+    @JsonIgnore
     int id;
     @NotBlank
     @Email
